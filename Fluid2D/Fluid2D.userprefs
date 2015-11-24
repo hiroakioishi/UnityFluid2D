@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Fluid2D/Scripts/Fluid2D.cs">
+    <Files>
+      <File FileName="Assets/Fluid2D/Scripts/Fluid2D.cs" Line="33" Column="22" />
+      <File FileName="Assets/Fluid2D/Shaders/Advect.shader" Line="10" Column="17" />
+      <File FileName="Assets/Fluid2D/Shaders/PressureGradientSubtract.shader" Line="12" Column="32" />
+      <File FileName="Assets/Fluid2D/Shaders/PressureSolve.shader" Line="16" Column="74" />
+      <File FileName="Assets/Fluid2D/Shaders/VelocityDivergence.shader" Line="58" Column="16" />
+      <File FileName="Assets/Fluid2D/Shaders/UpdateDye.shader" Line="78" Column="16" />
+      <File FileName="Assets/Fluid2D/Shaders/ApplyForce.shader" Line="81" Column="16" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
