@@ -70,7 +70,7 @@
 			
  			float speed = length(mouseVelocity);
 			float x = clamp((speed * speed * 0.02 - l * 5.0) * projectedFraction, 0., 1.);
-			color.rgb += m * (lerp(float3(2.4, 0, 5.9) / 60.0, float3(0.2, 51.8, 100) / 30.0, x) + (float3(100) / 100.0) * pow(x, 9.0));
+			color.rgb += m * (lerp(float3(2.4, 0, 5.9) / 60.0, float3(0.2, 51.8, 100) / 30.0, x) + (float3(100, 100, 100) / 100.0) * pow(x, 9.0));
 		}
 
 		float4 result = color;

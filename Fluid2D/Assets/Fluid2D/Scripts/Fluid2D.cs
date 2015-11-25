@@ -6,8 +6,8 @@ public class Fluid2D : MonoBehaviour {
 	public int BufferSizeWidth  = 512;
 	public int BufferSizeHeight = 512;
 	
-	[Range (0, 25)]
-	public int SolverIterations = 25;
+	[Range (0, 50)]
+	public int SolverIterations = 50;
 	
 	public Shader AdvectShader;
 	public Shader DivergenceShader;
