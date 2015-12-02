@@ -7,6 +7,8 @@
 	
 	#include "UnityCG.cginc"
 	
+	#define PRESSURE_BOUNDARY
+	
 	uniform float2 _Invresolution;
 	
 	uniform sampler2D _MainTex;

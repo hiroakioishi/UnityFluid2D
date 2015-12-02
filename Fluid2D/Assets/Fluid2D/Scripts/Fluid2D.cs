@@ -29,7 +29,7 @@ public class Fluid2D : MonoBehaviour {
 	private RenderTexture[] _dyeBuffer;
 
 	private Vector2 _invResolution;
-	private float   _aspectRatio;
+	//private float   _aspectRatio;
 	private float   _RDX;
 	
 	[Range (0, 1024)]
@@ -38,6 +38,22 @@ public class Fluid2D : MonoBehaviour {
 	public bool IsLeftMouseButtonDown = false;
 	private Vector2 _currentMousePosition;
 	private Vector2 _previousMousePosition;
+
+	public RenderTexture GetFluidTex () {
+		if (_dyeBuffer != null && _dyeBuffer.Length > 0) {
+			return _dyeBuffer [0];
+		} else {
+			return null;
+		}
+	}
+
+	public RenderTexture GetFlowVelocityFieldTex () {
+		if (_velocityBuffer != null && _velocityBuffer.Length > 0) {
+			return _velocityBuffer [0];
+		} else {
+			return null;
+		}
+	}
 
 	void Start () {
 
@@ -60,7 +76,7 @@ public class Fluid2D : MonoBehaviour {
 		}
 		
 		Step (Time.deltaTime * 0.5f);
-		
+
 	}
 	
 	void OnDestroy () {
@@ -84,11 +100,11 @@ public class Fluid2D : MonoBehaviour {
 
 	public void Step (float dt_) {
 
-		_aspectRatio = Screen.width / (Screen.height * 1.0f);
+		//_aspectRatio = Screen.width / (Screen.height * 1.0f);
 		Shader.SetGlobalFloat ("_Fluid2D_AspectRatio", 1.0f);
 
 		Vector3 mp = Input.mousePosition;
-		mp.x *= _aspectRatio;
+		//mp.x *= _aspectRatio;
 		_currentMousePosition = Camera.main.ScreenToViewportPoint (mp);
 
 		_advect (ref _velocityBuffer, dt_);
@@ -149,11 +165,8 @@ public class Fluid2D : MonoBehaviour {
 		_pressureSolveMat.SetFloat   ("_Alpha", -(BufferSizeWidth * BufferSizeWidth));
 		_pressureSolveMat.SetVector  ("_Invresolution", _invResolution);
 
-		//_pressureSolveMat.activate(true, true);
-		
 		for (int i = 0; i < SolverIterations; i++) {
 			_pressureSolveMat.SetTexture ("_Pressure", _pressureBuffer [0]);
-			//(not using renderShaderTo to allow for minor optimization)
 			Graphics.Blit (null, _pressureBuffer [1], _pressureSolveMat);
 			_swapBuffer (_pressureBuffer);
 		}
@@ -174,13 +187,11 @@ public class Fluid2D : MonoBehaviour {
 
 		if(_updateDyeMat == null) return;
 
-		//set uniforms
 		_updateDyeMat.SetFloat   ("_Dt", dt_);
 		_updateDyeMat.SetTexture ("_Dye", _dyeBuffer [0]);
 		_updateDyeMat.SetInt     ("_IsMouseDown", IsLeftMouseButtonDown ? 1 : 0);
 		_updateDyeMat.SetVector  ("_MouseClipSpace", _currentMousePosition);
 		_updateDyeMat.SetVector  ("_LastMouseClipSpace", _previousMousePosition);
-		//render
 		Graphics.Blit (null, _dyeBuffer [1], _updateDyeMat);
 		_swapBuffer (_dyeBuffer);
 
@@ -323,20 +334,18 @@ public class Fluid2D : MonoBehaviour {
 		Rect r10  = new Rect (size * 1, size * 0, size, size);
 		Rect r01  = new Rect (size * 0, size * 1, size, size);
 		Rect r11  = new Rect (size * 1, size * 1, size, size);
-		Rect r02  = new Rect (size * 0, size * 2, size, size);
-		Rect r12  = new Rect (size * 1, size * 2, size, size);
-		Rect r03  = new Rect (size * 0, size * 3, size, size);
-		Rect r13  = new Rect (size * 1, size * 3, size, size);
-		Rect r04  = new Rect (size * 0, size * 4, size, size);
-		Rect r14  = new Rect (size * 1, size * 4, size, size);
+		//Rect r02  = new Rect (size * 0, size * 2, size, size);
+		//Rect r12  = new Rect (size * 1, size * 2, size, size);
+		//Rect r03  = new Rect (size * 0, size * 3, size, size);
+		//Rect r13  = new Rect (size * 1, size * 3, size, size);
+		//Rect r04  = new Rect (size * 0, size * 4, size, size);
+		//Rect r14  = new Rect (size * 1, size * 4, size, size);
 		Rect r20  = new Rect (size * 2, size * 0, size, size);
-		Rect r21  = new Rect (size * 2, size * 1, size, size);
+		//Rect r21  = new Rect (size * 2, size * 1, size, size);
 		Rect r30  = new Rect (size * 3, size * 0, size, size);
 		Rect r31  = new Rect (size * 3, size * 1, size, size);
-		Rect r40  = new Rect (size * 4, size * 0, size, size);
-		Rect r41  = new Rect (size * 4, size * 1, size, size);
 
-		GUI.DrawTexture (new Rect (0, 0, Screen.height, Screen.height), _dyeBuffer [0]);
+		//GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _dyeBuffer [0]);
 
 		GUI.DrawTexture (r00, _velocityBuffer [0]);
 		GUI.Label (r00, "_velcotiyBuffer [0]");
